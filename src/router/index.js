@@ -29,7 +29,7 @@ export const constantRouterMap = [
       path: 'home',
       name: 'home',
       component: () => import('@/views/home/index'),
-      meta: {title: '首页', icon: 'home'}
+      meta: {title: '首页', icon: 'index'}
     }]
   },
   {
@@ -47,7 +47,14 @@ export const constantRouterMap = [
       path: 'addGroupPurchase',
       name: 'addGroupPurchase',
       component: () => import('@/views/cgp/addGroupPurchase/index'),
-      meta: {title: '创建团购', icon: 'product-list'}
+      meta: {title: '创建团购', icon: 'product-list'},
+      hidden: true
+    },{
+      path: 'particulars',
+      name: 'particulars',
+      meta: {title: '开团详情', icon: 'product-list'},
+      component: () => import('@/views/cgp/particulars/index'),
+      hidden: true
     }]
   },
   {
@@ -55,7 +62,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/pms/product',
     name: 'pms',
-    meta: {title: '商品管理', icon: 'product'},
+    meta: {title: '商品管理', icon: 'shangpin'},
     children: [{
       path: 'product',
       name: 'product',
@@ -163,7 +170,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/oms/order',
     name: 'oms',
-    meta: {title: '订单管理', icon: 'order'},
+    meta: {title: '订单管理', icon: 'dingdanguanli'},
     children: [
       {
         path: 'order',
@@ -324,7 +331,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/ssms/delivery',
     name: 'ssms',
-    meta: {title: '发货备货管理', icon: 'home'},
+    meta: {title: '发货备货管理', icon: 'huowu'},
     children: [{
       path: 'delivery',
       name: 'delivery',
@@ -340,19 +347,26 @@ export const constantRouterMap = [
   {
     path: '/ams',
     component: Layout,
-    redirect: '/ams/afterSaleService',
+    redirect: '/ams/index',
     name: 'ams',
-    meta: {title: '售后管理', icon: 'home'},
+    meta: {title: '售后管理', icon: 'shouhouguanli'},
     children: [{
-      path: 'afterSaleService',
-      name: 'afterSaleService',
-      component: () => import('@/views/ams/afterSaleService/index'),
-      meta: {title: '售后服务', icon: 'product-list'}
+      path: 'index',
+      name: 'index',
+      component: () => import('@/views/ams/index'),
+      meta: {title: '售后管理', icon: 'shouhouguanli'},
     },{
-      path: 'AfterSalesGuarantee',
-      name: 'AfterSalesGuarantee',
-      component: () => import('@/views/ams/AfterSalesGuarantee/index'),
-      meta: {title: '售后保障', icon: 'product-list'}
+      path: 'refundProcessing',
+      name: 'refundProcessing',
+      component: () => import('@/views/ams/refundProcessing/index'),
+      meta: {title: '退款处理', icon: 'product-list'},
+      hidden: true
+    },{
+      path: 'detailedOrder',
+      name: 'detailedOrder',
+      meta: {title: '订单明细', icon: 'product-list'},
+      component: () => import('@/views/ams/detailedOrder/index'),
+      hidden: true
     }]
   },
   {
@@ -360,7 +374,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/ds/monthlySales',
     name: 'ds',
-    meta: {title: '数据统计', icon: 'home'},
+    meta: {title: '数据统计', icon: 'shujutongji'},
     children: [{
       path: 'monthlySales',
       name: 'monthlySales',
@@ -378,7 +392,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/cms/commissionSettlement',
     name: 'cms',
-    meta: {title: '资金管理', icon: 'home'},
+    meta: {title: '资金管理', icon: 'zijin'},
     children: [{
       path: 'commissionSettlement',
       name: 'commissionSettlement',
@@ -396,7 +410,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/cpms/RecruitmentAudit',
     name: 'cpms',
-    meta: {title: '社区合伙人管理', icon: 'home'},
+    meta: {title: '社区合伙人管理', icon: 'hehuoren'},
     children: [{
       path: 'RecruitmentAudit',
       name: 'RecruitmentAudit',
