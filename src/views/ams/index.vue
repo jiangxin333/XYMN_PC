@@ -1,5 +1,5 @@
 <template>
-  <div>售后保障</div>
+  <div></div>
 </template>
 
 <script>
