@@ -16,31 +16,16 @@
         </el-col>
         <el-col :span="10">
           <div class="grid-content bg-purple">
-            <span>选择日期</span>
-           <el-date-picker
-                 v-model="dataVal"
-                 type="daterange"
-                 range-separator="~"
-                 start-placeholder="开始日期"
-                 end-placeholder="结束日期">
-               </el-date-picker>
+            <span>选择日期:</span>
+            <el-date-picker v-model="dataVal" type="daterange" range-separator="~" start-placeholder="开始日期"
+              end-placeholder="结束日期">
+            </el-date-picker>
           </div>
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple">
-            <span>选择路线</span>
-           <el-dropdown @command="handleCommand">
-             <span class="el-dropdown-link">
-               <i class="el-icon-arrow-down el-icon--right"></i>
-             </span>
-             <el-dropdown-menu slot="dropdown">
-               <el-dropdown-item command="a">黄金糕</el-dropdown-item>
-               <el-dropdown-item command="b">狮子头</el-dropdown-item>
-               <el-dropdown-item command="c">螺蛳粉</el-dropdown-item>
-               <el-dropdown-item command="d" disabled>双皮奶</el-dropdown-item>
-               <el-dropdown-item command="e" divided>蚵仔煎</el-dropdown-item>
-             </el-dropdown-menu>
-           </el-dropdown>
+            <span>选择路线:</span>
+            <p class="drop-down"><span>全部</span><i class="el-icon-arrow-down"></i></p>
           </div>
         </el-col>
       </el-row>
@@ -56,15 +41,17 @@
         dataVal: ''
       }
     },
-    methods:{
-       handleCommand(command) {
-              this.$message('click on item ' + command);
-            }
+    methods: {
+
     }
   }
 </script>
 
 <style scoped>
+  * {
+    padding: 0;
+    margin: 0;
+  }
   .choice-box {
     padding: 0 20px;
   }
@@ -78,9 +65,36 @@
   .btn .el-button {
     height: 30px;
     line-height: 5px;
+    padding: 5px;
+  }
+
+  .Choice-timer {
+    margin-top: 30px;
   }
 
   .header-title>span {
     font-size: 14px;
+  }
+
+  .grid-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .drop-down {
+    border: 1px solid #dcdfe6;
+    width: 60%;
+    height: 38px;
+    line-height: 38px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 0 5px;
+    color: #606266;
+    border-radius: 4px;
+  }
+  .el-icon-arrow-down {
+    margin-top: 12px;
+    color: #606266;
   }
 </style>
