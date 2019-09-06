@@ -37,12 +37,12 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/cgp/communityGroupPurchase',
     name: 'cgp',
-    meta: {title: '社区团购', icon: 'home'},
+    meta: {title: '社区团购', icon: 'tuangou'},
     children: [{
       path: 'communityGroupPurchase',
       name: 'communityGroupPurchase',
       component: () => import('@/views/cgp/communityGroupPurchase/index'),
-      meta: {title: '社区团购', icon: 'product-list'}
+      meta: {title: '社区团购', icon: 'tuangou'}
     },{
       path: 'addGroupPurchase',
       name: 'addGroupPurchase',

@@ -143,7 +143,6 @@
           show-overflow-tooltip>
           <template slot-scope="scope">
             <el-input  v-model="scope.row.groupBuy" placeholder="请输入价格"></el-input>
-<!--            <span v-else>{{scope.row.retailPrice}}</span>-->
           </template>
         </el-table-column>
         <el-table-column
