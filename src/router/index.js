@@ -60,7 +60,7 @@ export const constantRouterMap = [
       path: 'product',
       name: 'product',
       component: () => import('@/views/pms/product/index'),
-      meta: {title: '商品列表', icon: 'product-list'}
+      meta: {title: '新增商品', icon: 'product-list'}
     },
       {
         path: 'addProduct',
