@@ -26,20 +26,17 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="商品介绍：">
+      <el-form-item label="详情介绍：">
         <el-input
           :autoSize="true"
           v-model="value.description"
           type="textarea"
           placeholder="请输入内容"></el-input>
       </el-form-item>
-      <el-form-item label="商品货号：">
-        <el-input v-model="value.productSn"></el-input>
-      </el-form-item>
-      <el-form-item label="商品售价：">
+      <el-form-item label="零售价：">
         <el-input v-model="value.price"></el-input>
       </el-form-item>
-      <el-form-item label="市场价：">
+      <el-form-item label="团购价格：">
         <el-input v-model="value.originalPrice"></el-input>
       </el-form-item>
       <el-form-item label="商品库存：">
