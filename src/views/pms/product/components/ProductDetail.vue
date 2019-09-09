@@ -6,33 +6,10 @@
       <el-step title="填写商品属性"></el-step>
       <!-- <el-step title="选择商品关联"></el-step> -->
     </el-steps>
-    <product-info-detail
-      v-show="showStatus[0]"
-      v-model="productParam"
-      :is-edit="isEdit"
-      @nextStep="nextStep">
-    </product-info-detail>
-    <product-sale-detail
-      v-show="showStatus[1]"
-      v-model="productParam"
-      :is-edit="isEdit"
-      @nextStep="nextStep"
-      @prevStep="prevStep">
-    </product-sale-detail>
-    <product-attr-detail
-      v-show="showStatus[2]"
-      v-model="productParam"
-      :is-edit="isEdit"
-      @nextStep="nextStep"
-      @prevStep="prevStep">
-    </product-attr-detail>
-    <product-relation-detail
-      v-show="showStatus[3]"
-      v-model="productParam"
-      :is-edit="isEdit"
-      @prevStep="prevStep"
-      @finishCommit="finishCommit">
-    </product-relation-detail>
+    <product-info-detail v-show="showStatus[0]" v-model="productParam" :is-edit="isEdit" @nextStep="nextStep"> </product-info-detail>
+    <!-- <product-sale-detail v-show="showStatus[1]" v-model="productParam" :is-edit="isEdit" @nextStep="nextStep" @prevStep="prevStep"> </product-sale-detail> -->
+    <product-attr-detail v-show="showStatus[1]" v-model="productParam" :is-edit="isEdit" @nextStep="nextStep" @prevStep="prevStep"> </product-attr-detail>
+    <!-- <product-relation-detail v-show="showStatus[3]" v-model="productParam" :is-edit="isEdit" @prevStep="prevStep" @finishCommit="finishCommit"> </product-relation-detail> -->
   </el-card>
 </template>
 <script>
@@ -116,7 +93,7 @@
       return {
         active: 0,
         productParam: Object.assign({}, defaultProductParam),
-        showStatus: [true, false, false, false]
+        showStatus: [true, false]
       }
     },
     created(){

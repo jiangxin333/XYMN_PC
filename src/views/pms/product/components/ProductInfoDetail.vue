@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 50px">
-    <el-form :model="value" :rules="rules" ref="productInfoForm" label-width="120px" style="width: 600px" size="small">
+    <el-form :model="value" :rules="rules" ref="productInfoForm" label-width="120px" style="width: 640px" size="small">
       <el-form-item label="商品分类：" prop="productCategoryId">
         <el-cascader
           v-model="selectProductCateValue"
@@ -26,13 +26,16 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="详情介绍：">
-        <el-input
-          :autoSize="true"
-          v-model="value.description"
-          type="textarea"
-          placeholder="请输入内容"></el-input>
-      </el-form-item>
+     <el-form-item label="商品介绍：">
+       <el-tabs v-model="activeHtmlName" type="card">
+         <el-tab-pane label="编辑内容" name="pc">
+           <tinymce :width="540" :height="300" v-model="value.detailHtml"></tinymce>
+         </el-tab-pane>
+        <!-- <el-tab-pane label="移动端详情" name="mobile">
+           <tinymce :width="540" :height="300" v-model="value.detailMobileHtml"></tinymce>
+         </el-tab-pane> -->
+       </el-tabs>
+     </el-form-item>
       <el-form-item label="零售价：">
         <el-input v-model="value.price"></el-input>
       </el-form-item>
@@ -53,7 +56,7 @@
         <el-input v-model="value.sort"></el-input>
       </el-form-item>
       <el-form-item style="text-align: center">
-        <el-button type="primary" size="medium" @click="handleNext('productInfoForm')">下一步，填写商品促销</el-button>
+        <el-button type="primary" size="medium" @click="handleNext('productInfoForm')">下一步，填写商品属性</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -63,9 +66,14 @@
   import {fetchListWithChildren} from '@/api/productCate'
   import {fetchList as fetchBrandList} from '@/api/brand'
   import {getProduct} from '@/api/product';
-
+  import {fetchList as fetchProductAttrCateList} from '@/api/productAttrCate'
+  import {fetchList as fetchProductAttrList} from '@/api/productAttr'
+  import SingleUpload from '@/components/Upload/singleUpload'
+  import MultiUpload from '@/components/Upload/multiUpload'
+  import Tinymce from '@/components/Tinymce'
   export default {
     name: "ProductInfoDetail",
+	components: {SingleUpload, MultiUpload, Tinymce},
     props: {
       value: Object,
       isEdit: {
@@ -76,6 +84,7 @@
     data() {
       return {
         hasEditCreated:false,
+		activeHtmlName: 'pc',
         //选中商品分类的值
         selectProductCateValue: [],
         productCateOptions: [],

@@ -26,17 +26,17 @@
 						<span>选择路线:&nbsp;</span>
 						<el-dropdown @command="handleCommand">
 							<p class="select-box">
-								<span>全部</span>
+								<input type="text" style="outline: none;border: none;" placeholder="全部" v-model="CommandMsg">
 								<span class="el-dropdown-link">
 									<i class="el-icon-arrow-down el-icon--right"></i>
 								</span>
 							</p>
-							<el-dropdown-menu slot="dropdown">
-								<el-dropdown-item command="a">重庆</el-dropdown-item>
-								<el-dropdown-item command="b">北京</el-dropdown-item>
-								<el-dropdown-item command="c">上海</el-dropdown-item>
-								<el-dropdown-item command="d" disabled>广州</el-dropdown-item>
-								<el-dropdown-item command="e" divided>深圳</el-dropdown-item>
+							<el-dropdown-menu slot="dropdown" style="width: 200px;">
+								<el-dropdown-item command="重庆">重庆</el-dropdown-item>
+								<el-dropdown-item command="北京">北京</el-dropdown-item>
+								<el-dropdown-item command="上海">上海</el-dropdown-item>
+								<el-dropdown-item command="广州">广州</el-dropdown-item>
+								<el-dropdown-item command="深圳" divided>深圳</el-dropdown-item>
 							</el-dropdown-menu>
 						</el-dropdown>
 					</div>
@@ -44,46 +44,115 @@
 			</el-row>
 		</div>
 		<div class="Content-box">
-			<div class="centen-header">
-				<el-checkbox class="sp-0" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-				<span class="sp-1">商品名称</span>
-				<span class="sp-2">规格</span>
-				<span class="sp-3">库存量</span>
-				<span class="sp-4">需求量</span>
-			</div>
 			<div style="margin: 15px 0;"></div>
-			<el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-				<el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
-			</el-checkbox-group>
+			<el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
+				<el-table-column type="selection" width="55">
+				</el-table-column>
+				<el-table-column label="商品名称">
+					<template slot-scope="scope">{{ scope.row.product_name }}</template>
+				</el-table-column>
+				<el-table-column prop="specification" label="规格">
+				</el-table-column>
+				<el-table-column prop="stock" label="库存量" show-overflow-tooltip width="200">
+				</el-table-column>
+				<el-table-column prop="demand" label="需求量" show-overflow-tooltip width="200">
+				</el-table-column>
+			</el-table>
+		</div>
+		<!-- 底部分页器 -->
+		<div class="footer-pagination">
+			    <el-pagination
+				  class="pagination1"
+			      @size-change="changePage"
+			      @current-change="dangqianPage"
+			      :current-page="currentPage4"
+			      :page-sizes="[10, 20, 30, 40]"
+			      :page-size="100"
+			      layout="total, sizes, prev, pager, next, jumper"
+			      :total="100">
+			    </el-pagination>
 		</div>
 	</div>
 </template>
 
 <script>
-	const cityOptions = ['上海', '北京', '广州', '深圳'];
 	export default {
 		name: "index",
 		data() {
 			return {
 				dataVal: '',
 				checkAll: false,
-				checkedCities: cityOptions,
-				cities: ['上海', '北京', '广州', '深圳'],
-				isIndeterminate: true
+				currentPage4: 4,
+				isIndeterminate: true,
+				CommandMsg: '',
+				tableData: [{
+					product_name: '【爱上烘焙】葡式蛋挞液',//产品名称
+					specification: '907g/瓶',//规格
+					stock: '1518',//库存量
+					demand: '123'
+				}, {
+					product_name: '【爱上烘焙】葡式蛋挞液',//产品名称
+					specification: '907g/瓶',//规格
+					stock: '1518',//库存量
+					demand: '123'
+				}, {
+					product_name: '【爱上烘焙】葡式蛋挞液',//产品名称
+					specification: '907g/瓶',//规格
+					stock: '1518',//库存量
+					demand: '123'
+				}, {
+					product_name: '【爱上烘焙】葡式蛋挞液',//产品名称
+					specification: '907g/瓶',//规格
+					stock: '1518',//库存量
+					demand: '123'
+				}, {
+					product_name: '【爱上烘焙】葡式蛋挞液',//产品名称
+					specification: '907g/瓶',//规格
+					stock: '1518',//库存量
+					demand: '123'
+				}, {
+					product_name: '【爱上烘焙】葡式蛋挞液',//产品名称
+					specification: '907g/瓶',//规格
+					stock: '1518',//库存量
+					demand: '123'
+				}, {
+					product_name: '【爱上烘焙】葡式蛋挞液',//产品名称
+					specification: '907g/瓶',//规格
+					stock: '1518',//库存量
+					demand: '123'
+				}],
+				multipleSelection: []//选择的数据数组
 			}
 		},
 		methods: {
 			handleCommand(command) {
-				this.$message('click on item ' + command);
-			},
-			handleCheckAllChange(val) {
-				this.checkedCities = val ? cityOptions : [];
-				this.isIndeterminate = false;
+				this.CommandMsg = command;
 			},
 			handleCheckedCitiesChange(value) {
 				let checkedCount = value.length;
 				this.checkAll = checkedCount === this.cities.length;
 				this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+			},
+			toggleSelection(rows) {
+				if (rows) {
+					rows.forEach(row => {
+						this.$refs.multipleTable.toggleRowSelection(row);
+					});
+				} else {
+					this.$refs.multipleTable.clearSelection();
+				}
+			},
+			handleSelectionChange(val) {
+				this.multipleSelection = val;
+				console.log('选项发生变化出发');
+			},
+			// 每条页数改变的时候触发
+			changePage() {
+				console.log('每条页数改变')
+			},
+			// 当前页改变时触发
+			dangqianPage() {
+			console.log('当前页改变')
 			}
 		}
 	}
@@ -129,30 +198,25 @@
 	.bg-purple-box1 {
 		padding-top: 12px;
 	}
-	
+
 	/* 主要内容区域 */
 	.Content-box {
 		margin-top: 20px;
 		width: 100%;
 		background: pink;
 	}
-	.centen-header {
-		display: flex;
+	/* 底部分页器 */
+	.footer-pagination {
+		position: relative;
+		top: 100px;
+		left: 0;
+		width: 100%;
+		height: 100px;
 	}
-	.centen-header .sp-0 {
-		flex: 2;
-	}
-	.centen-header .sp-1 {
-		flex: 3;
-	}
-	
-	.centen-header .sp-2 {
-		flex: 4;
-	}
-	.centen-header .sp-3 {
-		flex: 6;
-	}
-	.centen-header .sp-4 {
-		flex: ;
+	.pagination1 {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
 	}
 </style>
